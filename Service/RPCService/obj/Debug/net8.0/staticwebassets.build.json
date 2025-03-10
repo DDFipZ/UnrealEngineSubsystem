@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "27hBvRosSLfUhWGCKwJGjuBU0tEVUCzb466g8nuLsDg=",
+  "Source": "RPCService",
+  "BasePath": "_content/RPCService",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
