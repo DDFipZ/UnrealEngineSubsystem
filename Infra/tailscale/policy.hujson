@@ -1,4 +1,4 @@
-// Example/default ACLs for unrestricted connections.
+test // Example/default ACLs for unrestricted connections.
 {
 	// Declare static groups of users. Use autogroups for all users or users with a specific role.
 	// "groups": {
