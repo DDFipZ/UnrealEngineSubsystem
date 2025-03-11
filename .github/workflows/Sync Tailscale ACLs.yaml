@@ -28,7 +28,8 @@ jobs:
           api-key: ${{ secrets.TS_API_KEY }}
           tailnet: ${{ secrets.TS_TAILNET }}
           action: apply
-
+          policy-file: "Infra/tailscale/policy.hujson"
+          
       - name: Test ACL
         if: github.event_name == 'pull_request'
         id: test-acl
@@ -37,3 +38,4 @@ jobs:
           api-key: ${{ secrets.TS_API_KEY }}
           tailnet: ${{ secrets.TS_TAILNET }}
           action: test
+          policy-file: "Infra/tailscale/policy.hujson"
