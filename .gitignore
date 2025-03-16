@@ -73,3 +73,8 @@ ProjectUnreal/Plugins/**/Intermediate/*
 
 # Cache files for the editor to use
 ProjectUnreal/DerivedDataCache/*
+
+# Service related stuff
+Service/RPCService/bin/*
+Service/RPCService/out/*
+Service/RPCService/obj/*
