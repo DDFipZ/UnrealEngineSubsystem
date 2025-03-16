@@ -8,6 +8,11 @@
 			"Name": "ProjectUnreal",
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "OnlineSubsystemMLTK",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
 		}
 	],
 	"Plugins": [
