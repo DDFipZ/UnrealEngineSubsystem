@@ -12,7 +12,7 @@ provider "proxmox" {
 
   username = "root@pam"
 
-  password = "Passw0rd"
+  password = "example-password"
 
 
 
