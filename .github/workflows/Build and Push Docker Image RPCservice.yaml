@@ -19,7 +19,7 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build fipz/rpc-service:latest .
+          docker build -t fipz/rpc-service:latest ./Service/RPCService/
 
       - name: Push Docker Image to Docker Hub
         run: |
