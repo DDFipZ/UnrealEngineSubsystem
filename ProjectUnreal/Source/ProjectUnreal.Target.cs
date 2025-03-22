@@ -12,6 +12,7 @@ public class ProjectUnrealTarget : TargetRules
 		IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_4;
 		ExtraModuleNames.Add("ProjectUnreal");
 		RegisterModulesCreatedByRider();
+
 	}
 
 	private void RegisterModulesCreatedByRider()
