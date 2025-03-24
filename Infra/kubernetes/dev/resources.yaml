@@ -50,6 +50,8 @@ kind: Ingress
 metadata:
   name: rpc-service
   namespace: development
+  annotations:
+    tailscale.com/funnel: "true"
 spec:
   defaultBackend:
     service:
@@ -59,4 +61,4 @@ spec:
   ingressClassName: tailscale
   tls:
     - hosts:
-        - rpc-service
+        - rpc-service.timer-ruler.ts.net
