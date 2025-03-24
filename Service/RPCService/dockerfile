@@ -4,12 +4,12 @@ WORKDIR /source
 
 # copy csproj and restore as distinct layers
 COPY *.sln .
-COPY RPCService/*.csproj ./RPCService/
+COPY Service/RPCService/*.csproj ./RPCService/
 RUN dotnet restore
 
 # copy everything else and build app
-COPY RPCService/. ./RPCService/
-WORKDIR /source/RPCService
+COPY RPCService/. ./Service/RPCService/
+WORKDIR /source/Service/RPCService
 RUN dotnet publish -c release -o /app --no-restore
 
 # final stage/image
