@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Interfaces/OnlineSessionInterface.h"
-#include "SGreet/GreetService.h"
 
 class FOnlineSessionMLTK: IOnlineSession
 {
@@ -77,17 +76,10 @@ public:
 	virtual ~FOnlineSessionMLTK() override;
 
 	class FOnlineSubsystemMLTK* OnlineSubsystem;
-	UGreeterClient* GreeterClient;
 
-private:
-	void ResponseHi(FGrpcContextHandle Handle, const FGrpcResult& GrpcResult, const FGrpcGreetHelloReply& Response);
 public:
 	FOnlineSessionMLTK(FOnlineSubsystemMLTK* InSubsystem) :
 	OnlineSubsystem(InSubsystem)
 	{}
-
-	bool CreateClient();
-	void PokeService();
-	
 };
 typedef TSharedPtr<class FOnlineSessionMLTK, ESPMode::ThreadSafe> FOnlineSessionMLTKPtr;

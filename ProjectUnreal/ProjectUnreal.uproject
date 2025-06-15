@@ -22,14 +22,6 @@
 			"TargetAllowList": [
 				"Editor"
 			]
-		},
-		{
-			"Name": "TurboLink",
-			"Enabled": true
-		},
-		{
-			"Name": "TurboLink",
-			"Enabled": true
 		}
 	]
 }

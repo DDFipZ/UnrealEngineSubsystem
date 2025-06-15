@@ -227,28 +227,4 @@ FOnlineSessionMLTK::~FOnlineSessionMLTK()
 {
 }
 
-void FOnlineSessionMLTK::ResponseHi(FGrpcContextHandle Handle, const FGrpcResult& GrpcResult,
-	const FGrpcGreetHelloReply& Response)
-{
-	UE_LOG(LogTemp, Warning, TEXT("Hello response"));
-}
-
-bool FOnlineSessionMLTK::CreateClient()
-{
-	GreeterClient = OnlineSubsystem->GreeterService->MakeClient();
-	GreeterClient->OnSayHelloResponse.AddUniqueDynamic(this, &FOnlineSessionMLTK::ResponseHi);
-	if (GreeterClient)
-	{
-		return true;
-	}
-	return false;
-}
-
-void FOnlineSessionMLTK::PokeService()
-{
-	FGrpcGreetHelloRequest Request;
-	Request.Name = TEXT("Hi!");
-	FGrpcContextHandle GrpcContext = GreeterClient->InitSayHello();
-	GreeterClient->SayHello(GrpcContext, Request);
-}
 
