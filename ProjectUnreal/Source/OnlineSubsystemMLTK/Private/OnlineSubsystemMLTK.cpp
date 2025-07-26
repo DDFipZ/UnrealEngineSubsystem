@@ -1,8 +1,11 @@
 ﻿#include "OnlineSubsystemMLTK.h"
 
+#include "OnlineSessionInterfaceMLTK.h"
+#include "OnlineSessionSettings.h"
+
 IOnlineSessionPtr FOnlineSubsystemMLTK::GetSessionInterface() const
 {
-	return nullptr;
+	return SessionInterface;
 }
 
 IOnlineFriendsPtr FOnlineSubsystemMLTK::GetFriendsInterface() const
@@ -12,6 +15,7 @@ IOnlineFriendsPtr FOnlineSubsystemMLTK::GetFriendsInterface() const
 
 bool FOnlineSubsystemMLTK::Init()
 {
+	SessionInterface = MakeShareable(new FOnlineSessionMLTK(this));
 	return true;
 }
 

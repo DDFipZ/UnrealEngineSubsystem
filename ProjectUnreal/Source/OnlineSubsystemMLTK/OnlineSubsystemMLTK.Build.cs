@@ -1,4 +1,5 @@
-﻿using UnrealBuildTool;
+﻿using System.Net;
+using UnrealBuildTool;
 
 public class OnlineSubsystemMLTK : ModuleRules
 {
@@ -12,7 +13,11 @@ public class OnlineSubsystemMLTK : ModuleRules
                 "Core",
                 "OnlineSubsystemUtils",
                 "OnlineServicesInterface",
-                "OnlineServicesCommon"
+                "OnlineServicesCommon",
+                "InputCore",
+                "Http",
+                "Json",
+                "JsonUtilities"
                 
             }
         );

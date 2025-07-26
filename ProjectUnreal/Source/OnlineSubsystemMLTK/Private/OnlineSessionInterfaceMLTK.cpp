@@ -87,6 +87,9 @@ bool FOnlineSessionMLTK::CancelMatchmaking(const FUniqueNetId& SearchingPlayerId
 
 bool FOnlineSessionMLTK::FindSessions(int32 SearchingPlayerNum, const TSharedRef<FOnlineSessionSearch>& SearchSettings)
 {
+	Service = NewObject<UGameService>();
+	Service->AddToRoot();
+	Service->HelloWorld();
 	return false;
 }
 
