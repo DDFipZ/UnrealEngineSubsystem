@@ -1,10 +1,13 @@
 #pragma once
 
+#include "GameService.h"
 #include "Interfaces/OnlineSessionInterface.h"
 
-class FOnlineSessionMLTK: IOnlineSession
+class FOnlineSessionMLTK: public IOnlineSession
 {
-public:
+private:
+	class FOnlineSubsystem* Subsystem;
+	UGameService* Service;
 
 protected:
 	virtual FNamedOnlineSession*
