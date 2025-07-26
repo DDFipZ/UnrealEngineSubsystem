@@ -75,6 +75,8 @@ ProjectUnreal/Plugins/**/Intermediate/*
 ProjectUnreal/DerivedDataCache/*
 
 # Service related stuff
-Service/RPCService/bin/*
-Service/RPCService/out/*
-Service/RPCService/obj/*
+Service/GameService/bin/*
+Service/GameService/out/*
+Service/GameService/obj/*
+Service/GameService/.vs/*
+Service/GameService/.idea/*
