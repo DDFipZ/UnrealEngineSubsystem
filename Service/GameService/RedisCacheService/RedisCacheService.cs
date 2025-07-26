@@ -24,10 +24,16 @@ internal class RedisCacheService : IRedisCacheService
         throw new NotImplementedException();
     }
 
+    Task IRedisCacheService.StringSet(string key, string value, TimeSpan? expiry)
+    {
+        _cache.StringSetAsync(key, value);
+        _cache.KeyExpire(key, expiry);
+        return Task.CompletedTask;
+    }
+
     Task IRedisCacheService.SetAsync(string key, string value, TimeSpan? expiry)
     {
-        _cache.StringSet(key, value);
-        _cache.KeyExpire(key, expiry);
+        _cache.SetAddAsync(key, value);
         return Task.CompletedTask;
     }
 }
