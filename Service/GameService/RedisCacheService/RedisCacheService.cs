@@ -39,7 +39,6 @@ internal class RedisCacheService : IRedisCacheService
     }
     public RedisValue[] SetMembers(string key)
     {
-        Console.WriteLine(_cache.SetMembers(key));
         return _cache.SetMembers(key);
 
     }
