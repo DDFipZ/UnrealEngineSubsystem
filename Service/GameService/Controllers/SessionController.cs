@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi;
+using StackExchange.Redis;
 using System.Text.Json;
 
 namespace GameService.Controllers;
@@ -25,7 +26,17 @@ public class SessionController : ControllerBase
         sessionSettings.ID = guid;
         string serializedData = JsonSerializer.Serialize(sessionSettings);
         Task task = _cache.StringSet($"SESSION:{sessionSettings.ID}", serializedData);
-        _cache.SetAsync($"ACTIVE_SESSIONS:{sessionSettings.BuildUniqueID}", sessionSettings.ID);
+        _cache.SetAsync($"SESSIONS:{sessionSettings.BuildUniqueID}", sessionSettings.ID);
         return serializedData;  
+    }
+
+    [HttpGet("findsessions")]
+    public string FindSessions([FromBody] SessionSettings sessionSettings)
+    {
+        var serialized = JsonSerializer.Serialize(sessionSettings.BuildUniqueID);
+        var sessionValues = _cache.SetMembers($"SESSIONS:{serialized}");
+        var sessionIDs = sessionValues.ToStringArray();
+        
+        return JsonSerializer.Serialize(sessionIDs);
     }
 }

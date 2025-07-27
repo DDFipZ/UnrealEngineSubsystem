@@ -1,5 +1,6 @@
 ﻿
 using StackExchange.Redis;
+using StackExchange.Redis.Profiling;
 
 internal class RedisCacheService : IRedisCacheService
 {
@@ -35,5 +36,11 @@ internal class RedisCacheService : IRedisCacheService
     {
         _cache.SetAddAsync(key, value);
         return Task.CompletedTask;
+    }
+    public RedisValue[] SetMembers(string key)
+    {
+        Console.WriteLine(_cache.SetMembers(key));
+        return _cache.SetMembers(key);
+
     }
 }
