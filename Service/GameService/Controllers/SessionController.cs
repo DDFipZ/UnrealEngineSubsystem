@@ -20,23 +20,42 @@ public class SessionController : ControllerBase
     }
 
     [HttpPost("createsession")]
-    public string CreateSession([FromBody] SessionSettings sessionSettings)
+    public SessionSettings CreateSession([FromBody] SessionSettings sessionSettings)
     {
         var guid = Guid.NewGuid().ToString();
         sessionSettings.ID = guid;
-        string serializedData = JsonSerializer.Serialize(sessionSettings);
-        Task task = _cache.StringSet($"SESSION:{sessionSettings.ID}", serializedData);
+        HashEntry[] hashEntries =
+        [
+            new HashEntry("ID", sessionSettings.ID),
+            new HashEntry("Name", sessionSettings.Name),
+            new HashEntry("BuildUniqueID", sessionSettings.BuildUniqueID)
+        ];
+        // Save the session as a hash in Redis
+        Task task = _cache.HashSetAsync($"SESSION:{sessionSettings.ID}", hashEntries);
+        
+        // Adds the session to the set of sessions for the given BuildUniqueID
         _cache.SetAsync($"SESSIONS:{sessionSettings.BuildUniqueID}", sessionSettings.ID);
-        return serializedData;  
+        
+        return sessionSettings;
     }
 
     [HttpGet("findsessions")]
-    public string FindSessions([FromBody] SessionSettings sessionSettings)
+    public List<SessionSettings> FindSessions([FromBody] SessionSettings sessionSettings)
     {
-        var serialized = JsonSerializer.Serialize(sessionSettings.BuildUniqueID);
-        var sessionValues = _cache.SetMembers($"SESSIONS:{serialized}");
-        var sessionIDs = sessionValues.ToStringArray();
-        
-        return JsonSerializer.Serialize(sessionIDs);
+        RedisValue[] sessionValues = _cache.SetMembers($"SESSIONS:{sessionSettings.BuildUniqueID}");
+        List <SessionSettings> sessions = new List<SessionSettings>();
+        foreach (var session in sessionValues)
+        {
+            HashEntry[] entries = _cache.HashGetAllAsync($"SESSION:{session.ToString()}").Result;
+            SessionSettings foundSession = new SessionSettings
+            {
+                ID = entries.FirstOrDefault(e => e.Name == "ID").Value,
+                Name = entries.FirstOrDefault(e => e.Name == "Name").Value,
+                BuildUniqueID = (int)entries.FirstOrDefault(e => e.Name == "BuildUniqueID").Value
+            };
+            
+            sessions.Add(foundSession);
+        }
+        return sessions;
     }
 }

@@ -32,6 +32,28 @@ internal class RedisCacheService : IRedisCacheService
         return Task.CompletedTask;
     }
 
+    public Task HashSetAsync(string key, HashEntry[] hashFields, TimeSpan? expiry = null)
+    {
+        try
+        {
+            _cache.HashSet(key, hashFields);
+            _cache.KeyExpire(key, expiry);
+            return Task.CompletedTask;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return Task.FromException(e);
+        }
+
+    }
+
+    public Task<HashEntry[]> HashGetAllAsync(string key)
+    {
+        return _cache.HashGetAllAsync(key);
+
+    }
+
     Task IRedisCacheService.SetAsync(string key, string value, TimeSpan? expiry)
     {
         _cache.SetAddAsync(key, value);
