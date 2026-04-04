@@ -19,14 +19,23 @@ public class SessionController : ControllerBase
         _cache = cache;
     }
 
+    [HttpGet("ping")]
+    public string Ping()
+    {
+        return "Connected!";
+    }
+    
     [HttpPost("createsession")]
     public SessionSettings CreateSession([FromBody] SessionSettings sessionSettings)
     {
+        // Get IP from request
+        sessionSettings.IPAddress = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "Unknown";
         var guid = Guid.NewGuid().ToString();
         sessionSettings.ID = guid;
         HashEntry[] hashEntries =
         [
             new HashEntry("ID", sessionSettings.ID),
+            new HashEntry("IPAddress", sessionSettings.IPAddress),
             new HashEntry("Name", sessionSettings.Name),
             new HashEntry("BuildUniqueID", sessionSettings.BuildUniqueID)
         ];

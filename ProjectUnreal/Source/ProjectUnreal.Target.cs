@@ -17,6 +17,6 @@ public class ProjectUnrealTarget : TargetRules
 
 	private void RegisterModulesCreatedByRider()
 	{
-		ExtraModuleNames.AddRange(new string[] { "OnlineSubsystemMLTK" });
+		//ExtraModuleNames.AddRange(new string[] { "OnlineSubsystemMLTK" });
 	}
 }
