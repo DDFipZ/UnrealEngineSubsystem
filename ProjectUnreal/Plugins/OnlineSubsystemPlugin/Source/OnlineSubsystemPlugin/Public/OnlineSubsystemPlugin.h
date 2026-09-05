@@ -16,7 +16,6 @@ public:
 	FOnlineSubsystemPluginModule() :
 		FactoryMLTK(NULL) {}
 	virtual ~FOnlineSubsystemPluginModule() {}
-	void DeleteFactory();
 	virtual bool SupportsDynamicReloading() override
 	{
 		return false;

@@ -40,6 +40,10 @@ EOnlineSessionState::Type FOnlineSessionMLTK::GetSessionState(FName SessionName)
 bool FOnlineSessionMLTK::CreateSession(int32 HostingPlayerNum, FName SessionName,
 	const FOnlineSessionSettings& NewSessionSettings)
 {
+	if (Service)
+		Service->RemoveFromRoot();
+	Service = NewObject<UGameService>();
+	Service->AddToRoot();
 	Service->CreateSession(SessionName, "HI", NewSessionSettings);
 	TriggerOnCreateSessionCompleteDelegates(SessionName, true);
 	return true;
@@ -89,6 +93,8 @@ bool FOnlineSessionMLTK::CancelMatchmaking(const FUniqueNetId& SearchingPlayerId
 
 bool FOnlineSessionMLTK::FindSessions(int32 SearchingPlayerNum, const TSharedRef<FOnlineSessionSearch>& SearchSettings)
 {
+	if (Service)
+		Service->RemoveFromRoot();
 	Service = NewObject<UGameService>();
 	Service->AddToRoot();
 	Service->HelloWorld();
@@ -230,6 +236,8 @@ bool FOnlineSessionMLTK::CreateSession(const FUniqueNetId& HostingPlayerId, FNam
 
 FOnlineSessionMLTK::~FOnlineSessionMLTK()
 {
+	if (Service)
+		Service->RemoveFromRoot();
 }
 
 

@@ -2,6 +2,7 @@
 
 #include "OnlineSubsystemPlugin.h"
 #include "OnlineSubsystemMLTK.h"
+#include "rtc/global.hpp"
 
 #define LOCTEXT_NAMESPACE "FOnlineSubsystemPluginModule"
 IMPLEMENT_MODULE(FOnlineSubsystemPluginModule, MLTK_ONLINESUBSYSTEM)
@@ -38,18 +39,6 @@ public:
 
 FOnlineSubsystemMLTKPtr FOnlineSubsystemMLTKFactory::OnlineSubsystemMLTKSingleton = nullptr;
 
-void FOnlineSubsystemPluginModule::DeleteFactory()
-{
-	if (FOnlineSubsystemMLTKFactory::OnlineSubsystemMLTKSingleton.IsValid())
-	{
-		FOnlineSubsystemMLTKFactory::OnlineSubsystemMLTKSingleton->Shutdown();
-		FOnlineSubsystemMLTKFactory::OnlineSubsystemMLTKSingleton.Reset();
-	}
-	
-	delete FactoryMLTK;
-	FactoryMLTK = nullptr;
-}
-
 void FOnlineSubsystemPluginModule::StartupModule()
 {
 	// This code will execute after your module is loaded into memory; the exact timing is specified in the .uplugin file per-module
@@ -61,6 +50,8 @@ void FOnlineSubsystemPluginModule::StartupModule()
 		// Create and register our singleton factory with the main online subsystem for easy access
 		FOnlineSubsystemModule& OSS = FModuleManager::GetModuleChecked<FOnlineSubsystemModule>("OnlineSubsystem");
 		OSS.RegisterPlatformService(MLTK_ONLINESUBSYSTEM, FactoryMLTK);
+		UE_LOG_ONLINE(Warning, TEXT("Online subsystem registered!"));
+		rtc::InitLogger(rtc::LogLevel::Info);
 	}
 	else
 	{

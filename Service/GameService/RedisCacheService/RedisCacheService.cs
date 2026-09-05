@@ -64,4 +64,14 @@ internal class RedisCacheService : IRedisCacheService
         return _cache.SetMembers(key);
 
     }
+    
+    public Task ListRightPushAsync(string key, string value)
+    {
+        return _cache.ListRightPushAsync(key, value);
+    }
+
+    public Task<RedisValue[]> ListRangeAsync(string key, long start, long stop)
+    {
+        return _cache.ListRangeAsync(key, start, stop);
+    }
 }

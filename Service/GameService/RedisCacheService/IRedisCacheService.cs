@@ -10,4 +10,6 @@ public interface IRedisCacheService
     Task<string?> GetAsync(string key);
     Task<bool> RemoveAsync(string key);
     Task<bool> KeyExistsAsync(string key);
+    Task ListRightPushAsync(string key, string value);
+    public Task<RedisValue[]> ListRangeAsync(string key, long start, long stop);
 }

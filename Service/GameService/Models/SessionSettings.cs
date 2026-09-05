@@ -7,7 +7,7 @@ enum GameID
 }
 public class SessionSettings
 {
-    public string? ID { get; set; }
+    public string? sessionId { get; set; }
     public string? Name { get; set; }
     public string? IPAddress { get; set; }
     public int BuildUniqueID { get; set; }
